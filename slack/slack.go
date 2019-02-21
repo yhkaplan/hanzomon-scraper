@@ -1,6 +1,7 @@
 package slack
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/nlopes/slack"
@@ -9,8 +10,10 @@ import (
 func SendMessage(message string, channel string) {
 	token := os.Getenv("SLACK_TOKEN")
 	api := slack.New(token)
-	rtm := api.NewRTM()
+	p := slack.PostMessageParameters{}
 
-	msg := rtm.NewOutgoingMessage(message, channel)
-	rtm.SendMessage(msg)
+	_, _, err := api.PostMessage(channel, message, p)
+	if err != nil { //TODO: propagate err
+		fmt.Println(err)
+	}
 }

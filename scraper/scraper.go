@@ -22,8 +22,8 @@ func ProcessTableRow(index int, tableRow *goquery.Selection) {
 
 	isToday := strings.Contains(txt, date)
 	if isToday {
-		slack.SendMessage(announce, "#SomeChannel")
-		fmt.Printf("%s\n\n", announce)
+		slack.SendMessage(announce, "C9MUYL550")
+		// fmt.Printf("%s\n\n", announce)
 	}
 }
 
