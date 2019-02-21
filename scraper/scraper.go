@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/yhkaplan/scraper/slack"
 )
 
 func ProcessTableRow(index int, tableRow *goquery.Selection) {
@@ -16,11 +17,12 @@ func ProcessTableRow(index int, tableRow *goquery.Selection) {
 	date, err := currentLocalizedDate()
 	if err != nil {
 		fmt.Printf("Fatal error: %s", err)
-		os.Exit(1)
+		os.Exit(1) //TODO: improve this to propagate error
 	}
 
 	isToday := strings.Contains(txt, date)
 	if isToday {
+		slack.SendMessage(announce, "#SomeChannel")
 		fmt.Printf("%s\n\n", announce)
 	}
 }
