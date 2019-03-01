@@ -8,7 +8,10 @@ import (
 )
 
 func SendMessage(message string, channel string) {
-	token := os.Getenv("SLACK_TOKEN")
+	token, ok := os.LookupEnv("SLACK_TOKEN")
+	if !ok {
+		fmt.Println("No token set")
+	}
 	api := slack.New(token)
 	p := slack.PostMessageParameters{}
 
