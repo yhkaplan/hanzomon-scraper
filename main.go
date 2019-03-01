@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"net/http"
 
 	"github.com/PuerkitoBio/goquery"
@@ -14,21 +13,21 @@ func main() {
 }
 
 //TODO: move all this to cmd dir
-func HandleReq(ctx context.Context, name string) (string, error) {
+func HandleReq() error {
 	resp, err := http.Get("https://www.tokyometro.jp/unkou/history/hanzoumon.html")
 	if err != nil {
-		return "", err
+		return err
 	}
 	defer resp.Body.Close()
 
 	// Create goquery doc
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	// Wrap this in errorable way?
 	doc.Find("tr").Each(scraper.ProcessTableRow)
 
-	return "Success", nil
+	return nil
 }
