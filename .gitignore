@@ -5,6 +5,9 @@
 *.so
 *.dylib
 
+# Skip envar secrets
+.env
+
 # Test binary, build with `go test -c`
 *.test
 
